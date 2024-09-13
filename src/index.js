@@ -16,7 +16,6 @@ const routes = {
   "k8s.jiuwei.link": "https://registry.k8s.io",
   "ghcr.jiuwei.link": "https://ghcr.io",
   "cloudsmith.jiuwei.link": "https://docker.cloudsmith.io",
-  "ecr.jiuwei.link": "https://public.ecr.aws",
 
   // staging
   "docker-staging.jiuwei.link": dockerHub,
@@ -44,15 +43,16 @@ async function handleRequest(request) {
         status: 404,
       }
     );
-// return docs
-if (url.pathname === "/") {
-  return new Response(DOCS, {
-    status: 200,
-    headers: {
-      "content-type": "text/html"
-    }
-  });
-}
+  }
+  // return docs
+  if (url.pathname === "/") {
+    return new Response(DOCS, {
+      status: 200,
+      headers: {
+        "content-type": "text/html"
+      }
+    });
+  }
   const isDockerHub = upstream == dockerHub;
   const authorization = request.headers.get("Authorization");
   if (url.pathname == "/v2/") {
